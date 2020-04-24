@@ -1,5 +1,25 @@
 # Markdown-Jekyll Preprocessor 
 
+Run with bash script (one argument: file to be processed):
+
+```
+processMarkdown ()
+{
+    python getHeaders.py $@ 
+    markdown_py temp.txt > temp.html 
+    python changeToOl.py temp.html 
+    python placeHeaders.py $@ olHeaders.txt 
+    python writeFootnote.py temp1.txt temp2.txt 
+    python getSmall.py temp1.txt temp3.txt 
+    cat temp2.txt temp3.txt > processedDocument.md 
+    rm temp.txt temp.html olHeaders.txt temp1.txt temp2.txt temp3.txt;
+}
+```
+Includes a Markdown -> HTML script, which you can find at: https://pypi.org/project/Markdown/ 
+
+## Limitations
+- Can't include footnotes in headers (this would make the parsing much harder)
+
 ## Input
 
 Takes a text file formatted with Markdown and Jekyll frontmatter. Eg:
